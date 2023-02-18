@@ -1,13 +1,15 @@
-import express from "express";
+import "./loadEnvironment.js";
+import createDebug from "debug";
+import chalk from "chalk";
+import startServer from "./server/startServer.js";
 
-const app = express();
+const debug = createDebug("robots:root");
 
-const port = 4000;
+const port = process.env.PORT ?? 4000;
 
-app.use("/robots", (req, res) => {
-  res.json({
-    ping: "pong",
-  });
-});
-
-app.listen(port);
+try {
+  await startServer(+port);
+  debug(chalk.green.bold(`Server is listening on http://localhost:${port}`));
+} catch (error) {
+  debug(chalk.red.bold(`Error: ${(error as Error).message}`));
+}
