@@ -4,9 +4,9 @@ class CustomError extends Error {
   constructor(
     public statusCode: number,
     public publicMessage: string,
-    messge: string
+    message: string
   ) {
-    super(messge);
+    super(message);
   }
 }
 
